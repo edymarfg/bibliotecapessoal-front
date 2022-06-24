@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  padding: 0;
+  margin: 0;
+  background-image: url("assets/biblioteca.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.menu {
+  padding: 10px;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    margin: 5px;
+    padding: 30px;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #00ff7f;
+    &:hover {
+      background-color: #00ff7f;
+    }
+  }
+  a {
+    font-size: 30px;
+    text-decoration: none;
+    color: #0b610b;
+  }
+}
