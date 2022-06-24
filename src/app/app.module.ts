@@ -1,3 +1,4 @@
+import { CadastrarLivroObtidoModule } from './cadastrar-livro-obtido/cadastrar-livro-obtido.module';
 import { LivroObtidoModule } from './livro-obtido/livro-obtido.module';
 import { LivroObtidoModel } from './model/livro-obtido-model';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,13 @@ import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HomeModule, LivroObtidoModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HomeModule,
+    LivroObtidoModule,
+    CadastrarLivroObtidoModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
