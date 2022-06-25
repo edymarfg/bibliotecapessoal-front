@@ -43,7 +43,7 @@ export class CadastrarLivroObtidoComponent implements OnInit {
   }
 
   private post(model: LivroObtidoModel): Observable<LivroObtidoModel> {
-    const url = 'http://localhost:8080/cliente/cadastrar';
+    const url = 'http://localhost:8080/livro-obtido/cadastrar';
     return this.http.post<LivroObtido>(url, model);
   }
 }

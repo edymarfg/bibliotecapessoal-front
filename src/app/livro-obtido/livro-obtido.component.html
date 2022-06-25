@@ -5,4 +5,12 @@
     <li><a routerLink="/consultar-livro-obtido">Consultar</a></li>
   </ul>
 </div>
+<h1>Seus Livros</h1>
+<div>
+  <div class="little-box" *ngFor="let livroObtido of list">
+    <p>{{ livroObtido.titulo }}</p>
+    <p>{{ livroObtido.autor }}</p>
+    <p>{{ livroObtido.porcentagemLido }}</p>
+  </div>
+</div>
 <div class="caixa"></div>

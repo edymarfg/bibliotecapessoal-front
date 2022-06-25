@@ -5,7 +5,7 @@
       <li><a routerLink="/livro-obtido">Livros</a></li>
     </ul>
   </div>
-  <h1>Cadastro de Livros Obtidos</h1>
+  <h1>Cadastre seus Livros</h1>
   <form class="form-box" [formGroup]="form" (ngSubmit)="cadastrar()">
     <input
       formControlName="titulo"
@@ -34,4 +34,6 @@
     <input formControlName="ano" placeholder="ano" type="text" maxlength="4" />
     <button type="submit" [disabled]="!form.valid">Cadastrar</button>
   </form>
+  <p>Result: {{ form.getRawValue() | json }}</p>
+  <p>Form é valido? {{ form.valid ? "Sim" : "Não" }}</p>
 </div>
