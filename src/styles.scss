@@ -6,6 +6,7 @@ body {
   background-image: url("assets/biblioteca.png");
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 h1 {
@@ -60,5 +61,24 @@ h1 {
     margin-top: 20px;
     font-size: 30px;
     border-radius: 10px;
+  }
+}
+
+.little-box {
+  display: inline-block;
+  background-color: aliceblue;
+  padding: 10px;
+  margin-left: 5%;
+  margin-top: 3%;
+  width: 20%;
+  border-radius: 10px;
+  opacity: 0.7;
+  p {
+    font-size: 15px;
+    color: #0b610b;
+  }
+  &:hover {
+    opacity: 1;
+    box-shadow: 0 0 0 2px #00ff7f;
   }
 }

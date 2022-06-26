@@ -1,3 +1,4 @@
+import { MostrarLivroObtidoComponent } from './../mostrar-livro-obtido/mostrar-livro-obtido.component';
 import { LivroObtido } from './../domain/livro-obtido';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -19,8 +20,12 @@ export class LivroObtidoComponent implements OnInit {
     });
   }
 
+  pegaId(livroObtido: LivroObtido): void {
+    MostrarLivroObtidoComponent.pegaId(livroObtido.id);
+  }
+
   private get(): Observable<LivroObtido[]> {
-    const url = 'http://localhost:8080/cliente/consultar';
+    const url = 'http://localhost:8080/livro-obtido/consultar';
     return this.http.get<LivroObtido[]>(url);
   }
 }

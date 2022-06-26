@@ -1,6 +1,6 @@
+import { MostrarLivroObtidoModule } from './mostrar-livro-obtido/mostrar-livro-obtido.module';
 import { CadastrarLivroObtidoModule } from './cadastrar-livro-obtido/cadastrar-livro-obtido.module';
 import { LivroObtidoModule } from './livro-obtido/livro-obtido.module';
-import { LivroObtidoModel } from './model/livro-obtido-model';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -16,6 +16,7 @@ import { HomeModule } from './home/home.module';
     HomeModule,
     LivroObtidoModule,
     CadastrarLivroObtidoModule,
+    MostrarLivroObtidoModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

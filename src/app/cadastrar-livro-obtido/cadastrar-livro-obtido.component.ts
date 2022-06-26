@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { LivroObtidoComponent } from '../livro-obtido/livro-obtido.component';
 
 @Component({
   selector: 'app-cadastrar-livro-obtido',
@@ -16,6 +17,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./cadastrar-livro-obtido.component.scss'],
 })
 export class CadastrarLivroObtidoComponent implements OnInit {
+  list: LivroObtido[] = [];
+
   form: FormGroup = this.formBuilder.group({
     titulo: new FormControl(null, [
       Validators.required,
@@ -29,7 +32,7 @@ export class CadastrarLivroObtidoComponent implements OnInit {
       Validators.required,
       Validators.minLength(2),
     ]),
-    paglidas: new FormControl(null, [Validators.required]),
+    pagLidas: new FormControl(null, [Validators.required]),
     ano: new FormControl(null, [Validators.required, Validators.minLength(4)]),
   });
 
@@ -39,10 +42,14 @@ export class CadastrarLivroObtidoComponent implements OnInit {
 
   cadastrar(): void {
     const livroObtidoModel: LivroObtidoModel = this.form.getRawValue();
-    this.post(livroObtidoModel);
+    this.post(livroObtidoModel).subscribe((domain: LivroObtido) => {
+      if (domain.id) {
+        this.list.push(domain);
+      }
+    });
   }
 
-  private post(model: LivroObtidoModel): Observable<LivroObtidoModel> {
+  private post(model: LivroObtidoModel): Observable<LivroObtido> {
     const url = 'http://localhost:8080/livro-obtido/cadastrar';
     return this.http.post<LivroObtido>(url, model);
   }

@@ -1,3 +1,4 @@
+import { LivroObtidoModule } from './../livro-obtido/livro-obtido.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CadastrarLivroObtidoComponent } from './cadastrar-livro-obtido.component';
