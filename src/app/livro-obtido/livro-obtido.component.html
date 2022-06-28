@@ -6,7 +6,7 @@
 </div>
 <h1>Seus Livros</h1>
 <div class="little-box" *ngFor="let livroObtido of list">
-  <a routerLink="/mostrar-livro-obtido" (click)="pegaId(livroObtido)">
+  <a routerLink="/mostrar-livro-obtido" [queryParams]="{id:livroObtido.id}">
     <div>
       <p>{{ livroObtido.titulo }}</p>
       <p>Autor: {{ livroObtido.autor }}</p>

@@ -33,7 +33,5 @@
     />
     <input formControlName="ano" placeholder="ano" type="text" maxlength="4" />
     <button type="submit" [disabled]="!form.valid">Cadastrar</button>
-  </form>
-  <p>Result: {{ form.getRawValue() | json }}</p>
-  <p>Form é valido? {{ form.valid ? "Sim" : "Não" }}</p>
+  </form> 
 </div>

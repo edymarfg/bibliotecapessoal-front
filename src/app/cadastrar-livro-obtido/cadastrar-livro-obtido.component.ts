@@ -45,6 +45,7 @@ export class CadastrarLivroObtidoComponent implements OnInit {
     this.post(livroObtidoModel).subscribe((domain: LivroObtido) => {
       if (domain.id) {
         this.list.push(domain);
+        this.form.reset();
       }
     });
   }

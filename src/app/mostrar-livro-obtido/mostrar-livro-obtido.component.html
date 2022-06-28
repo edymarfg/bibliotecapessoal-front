@@ -1,1 +1,40 @@
-<p>mostrar-livro-obtido works!</p>
+<div class="caixa">
+    <div class="menu">
+      <ul>
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/livro-obtido">Livros</a></li>
+      </ul>
+    </div>
+    <h1>Edite seu Livro</h1>
+    <div class="form-box">
+    <form  [formGroup]="form" (ngSubmit)="editar()">
+      <input
+        formControlName="titulo"
+        placeholder="Título"
+        type="text"
+        maxlength="64"
+      />
+      <input
+        formControlName="autor"
+        placeholder="Autor"
+        type="text"
+        maxlength="64"
+      />
+      <input
+        formControlName="paginas"
+        placeholder="Paginas Totais"
+        type="text"
+        maxlength="8"
+      />
+      <input
+        formControlName="pagLidas"
+        placeholder="Páginas Lidas"
+        type="text"
+        maxlength="8"
+      />
+      <input formControlName="ano" placeholder="ano" type="text" maxlength="4" />
+      <button type="submit" [disabled]="!form.valid">Editar</button>
+    </form>
+    <button (click)="excluir()">Excluir</button> 
+  </div>
+</div>

@@ -15,13 +15,13 @@ export class LivroObtidoComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+   this.carregaTabela();
+  }
+
+  private carregaTabela(): void {
     this.get().subscribe((domains: LivroObtido[]) => {
       this.list = domains;
     });
-  }
-
-  pegaId(livroObtido: LivroObtido): void {
-    MostrarLivroObtidoComponent.pegaId(livroObtido.id);
   }
 
   private get(): Observable<LivroObtido[]> {
