@@ -38,9 +38,11 @@
         type="text"
         maxlength="4"
       />
-      <button type="submit" [disabled]="!form.valid">Editar</button>
+      <button class="bt" type="submit" [disabled]="!form.valid">Editar</button>
+      <button class="bt" (click)="excluir()" [disabled]="!form.valid">
+        Excluir
+      </button>
     </form>
-    <button (click)="excluir()" [disabled]="!form.valid">Excluir</button>
   </div>
   <div id="pagLid" class="form-box">
     <h3>Quantas páginas que você leu?</h3>

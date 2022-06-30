@@ -1,29 +1,29 @@
-import { PagLidasModel } from './../model/pag-lidas-model';
-import { LivroObtidoService } from './../service/livro-obtido.service';
-import { LivroObtidoModel } from './../model/livro-obtido-model';
+import { LojaModel } from './../model/loja-model';
 import { LivroObtido } from './../domain/livro-obtido';
+import { LivroDesejoService } from './../service/livro-desejo.service';
+import { LivroDesejoModel } from './../model/livro-desejo-model';
+import { LivroDesejo } from './../domain/livro-desejo';
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormValidations } from '../validators/form-validations';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-mostrar-livro-obtido',
-  templateUrl: './mostrar-livro-obtido.component.html',
-  styleUrls: ['./mostrar-livro-obtido.component.scss'],
+  selector: 'app-mostrar-livro-desejo',
+  templateUrl: './mostrar-livro-desejo.component.html',
+  styleUrls: ['./mostrar-livro-desejo.component.scss'],
 })
-export class MostrarLivroObtidoComponent implements OnInit {
+export class MostrarLivroDesejoComponent implements OnInit {
   idLivro: string = '';
-  livro?: LivroObtido;
+  livro?: LivroDesejo;
   inscricao: Subscription = new Subscription();
-  list: LivroObtido[] = [];
+  list: LivroDesejo[] = [];
 
   form: FormGroup = this.formBuilder.group({
     id: new FormControl(null),
@@ -37,12 +37,6 @@ export class MostrarLivroObtidoComponent implements OnInit {
     ]),
     paginas: new FormControl(null, [
       Validators.required,
-      Validators.minLength(2),
-      FormValidations.numberValidator,
-    ]),
-    pagLidas: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(1),
       FormValidations.numberValidator,
     ]),
     ano: new FormControl(null, [
@@ -52,18 +46,19 @@ export class MostrarLivroObtidoComponent implements OnInit {
     ]),
   });
 
-  formAddPaginas: FormGroup = this.formBuilder.group({
-    id: new FormControl(null),
-    pagLidas: new FormControl(null, [
+  formAddLoja: FormGroup = this.formBuilder.group({
+    idLivroDesejo: new FormControl('', [Validators.required]),
+    preco: new FormControl(null, [
       Validators.required,
       Validators.minLength(1),
-      FormValidations.numberValidator,
+      FormValidations.noLetterValidator,
     ]),
+    nome: new FormControl(null, [Validators.required, Validators.minLength(1)]),
   });
 
   constructor(
     private formBuilder: FormBuilder,
-    private livroObtidoService: LivroObtidoService,
+    private livroDesejoService: LivroDesejoService,
     private activateRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -78,29 +73,57 @@ export class MostrarLivroObtidoComponent implements OnInit {
   }
 
   buscaLivro() {
-    this.livroObtidoService
+    this.livroDesejoService
       .consultarEspecifico(this.idLivro)
-      .subscribe((domain: LivroObtido) => {
+      .subscribe((domain: LivroDesejo) => {
         this.livro = domain;
         this.carregaDados(this.livro);
       });
   }
 
-  carregaDados(livroObtido: LivroObtido): void {
+  carregaDados(livroObtido: LivroDesejo): void {
     this.form.controls['id'].setValue(livroObtido.id);
     this.form.controls['titulo'].setValue(livroObtido.titulo);
     this.form.controls['autor'].setValue(livroObtido.autor);
     this.form.controls['paginas'].setValue(livroObtido.paginas);
-    this.form.controls['pagLidas'].setValue(livroObtido.pagLidas);
     this.form.controls['ano'].setValue(livroObtido.ano);
   }
 
   editar(): void {
     const id = this.idLivro;
-    const livroObtidoModel: LivroObtidoModel = this.form.getRawValue();
+    const livroDesejoModel: LivroDesejoModel = this.form.getRawValue();
     if (id) {
-      this.livroObtidoService
-        .editar(id, livroObtidoModel)
+      this.livroDesejoService
+        .editar(id, livroDesejoModel)
+        .subscribe((domain: LivroDesejo) => {
+          if (domain.id) {
+            this.router.navigate(['/livro-obtido']);
+            this.form.reset();
+          }
+        });
+    }
+  }
+
+  clickAddLoja(): void {
+    const id = this.idLivro;
+    this.formAddLoja.controls['idLivroDesejo'].setValue(id);
+  }
+
+  addLoja() {
+    const lojaModel: LojaModel = this.formAddLoja.getRawValue();
+    const id = this.idLivro;
+    if (id) {
+      this.livroDesejoService.adicionarLoja(id, lojaModel).subscribe(() => {
+        this.resetForm();
+      });
+    }
+  }
+
+  addLivrosObtidos(): void {
+    const id = this.idLivro;
+    if (id) {
+      this.livroDesejoService
+        .livroObtido(id)
         .subscribe((domain: LivroObtido) => {
           if (domain.id) {
             this.router.navigate(['/livro-obtido']);
@@ -113,9 +136,9 @@ export class MostrarLivroObtidoComponent implements OnInit {
   excluir(): void {
     const id = this.idLivro;
     if (id) {
-      this.livroObtidoService
+      this.livroDesejoService
         .excluir(this.idLivro)
-        .subscribe((domain: LivroObtido) => {
+        .subscribe((domain: LivroDesejo) => {
           if (domain.id) {
             this.router.navigate(['/livro-obtido']);
             this.form.reset();
@@ -124,18 +147,10 @@ export class MostrarLivroObtidoComponent implements OnInit {
     }
   }
 
-  addPaginas(): void {
-    const id = this.idLivro;
-    const pagLidasModel: PagLidasModel = this.formAddPaginas.getRawValue();
-    if (id) {
-      this.livroObtidoService
-        .addPaginas(id, pagLidasModel)
-        .subscribe((domain: LivroObtido) => {
-          this.router.navigate(['/livro-obtido']);
-          this.formAddPaginas.reset();
-          this.carregaDados(domain);
-        });
-    }
+  resetForm(): void {
+    this.formAddLoja.reset();
+    this.formAddLoja.controls['idLivroDesejo'].setValue('');
+    this.buscaLivro();
   }
 
   ngOnDestroy() {

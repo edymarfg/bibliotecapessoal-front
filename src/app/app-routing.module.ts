@@ -1,3 +1,4 @@
+import { MostrarLivroDesejoComponent } from './mostrar-livro-desejo/mostrar-livro-desejo.component';
 import { LivroDesejoComponent } from './livro-desejo/livro-desejo.component';
 import { MostrarLivroObtidoComponent } from './mostrar-livro-obtido/mostrar-livro-obtido.component';
 import { CadastrarLivroObtidoComponent } from './cadastrar-livro-obtido/cadastrar-livro-obtido.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'mostrar-livro-obtido', component: MostrarLivroObtidoComponent },
   { path: 'livro-desejo', component: LivroDesejoComponent },
   { path: 'cadastrar-livro-desejo', component: CadastrarLivroDesejoComponent },
+  { path: 'mostrar-livro-desejo', component: MostrarLivroDesejoComponent },
 ];
 
 @NgModule({

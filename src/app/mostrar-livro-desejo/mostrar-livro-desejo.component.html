@@ -1,0 +1,74 @@
+<div class="caixa">
+  <div class="menu">
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/livro-desejo">Desejados</a></li>
+    </ul>
+  </div>
+  <h1>Edite seu Livro</h1>
+  <div class="form-box">
+    <form [formGroup]="form" (ngSubmit)="editar()">
+      <input
+        formControlName="titulo"
+        placeholder="Título"
+        type="text"
+        maxlength="64"
+      />
+      <input
+        formControlName="autor"
+        placeholder="Autor"
+        type="text"
+        maxlength="64"
+      />
+      <input
+        formControlName="paginas"
+        placeholder="Paginas Totais"
+        type="text"
+        maxlength="8"
+      />
+      <input
+        formControlName="ano"
+        placeholder="ano"
+        type="text"
+        maxlength="4"
+      />
+      <button class="bt" type="submit" [disabled]="!form.valid">Editar</button>
+      <button class="bt" (click)="excluir()" [disabled]="!form.valid">
+        Excluir
+      </button>
+    </form>
+    <button (click)="clickAddLoja()" [disabled]="!form.valid">
+      Adicionar Loja
+    </button>
+  </div>
+  <div (click)="addLivrosObtidos()" id="livObt" class="form-box">
+    <h2>Livro conquistado?</h2>
+    <h3>Clique aqui para adicionar aos seus livros</h3>
+  </div>
+  <div id="loja">
+    <div class="form-box">
+      <h2>Lojas adicionadas</h2>
+    </div>
+  </div>
+
+  <div class="modal" *ngIf="formAddLoja.controls['idLivroDesejo'].value">
+    <form class="form-box" [formGroup]="formAddLoja" (ngSubmit)="addLoja()">
+      <p class="fechar" (click)="resetForm()">X</p>
+      <h2>Adicione uma Loja</h2>
+      <input
+        formControlName="nome"
+        placeholder="Loja"
+        type="text"
+        maxlength="64"
+      />
+      <input
+        formControlName="preco"
+        placeholder="Preco"
+        type="text"
+        maxlength="64"
+      />
+      <button type="submit" [disabled]="!formAddLoja.valid">Adicionar</button>
+    </form>
+    <div class="fundo"></div>
+  </div>
+</div>

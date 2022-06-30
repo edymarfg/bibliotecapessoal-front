@@ -9,4 +9,13 @@ export class FormValidations {
     }
     return null;
   }
+
+  static noLetterValidator(control: FormControl) {
+    const number = control.value;
+    if (number && number !== '') {
+      const validaNum = /[A-z]/g;
+      return !validaNum.test(number) ? null : { numInvalido: true };
+    }
+    return null;
+  }
 }

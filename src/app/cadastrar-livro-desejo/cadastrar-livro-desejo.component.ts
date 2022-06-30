@@ -27,7 +27,6 @@ export class CadastrarLivroDesejoComponent implements OnInit {
     ]),
     paginas: new FormControl(null, [
       Validators.required,
-      Validators.minLength(2),
       FormValidations.numberValidator,
     ]),
     ano: new FormControl(null, [

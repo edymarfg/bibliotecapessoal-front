@@ -1,3 +1,4 @@
+import { MostrarLivroDesejoModule } from './mostrar-livro-desejo/mostrar-livro-desejo.module';
 import { CadastrarLivroDesejoModule } from './cadastrar-livro-desejo/cadastrar-livro-desejo.module';
 import { LivroDesejoModule } from './livro-desejo/livro-desejo.module';
 import { MostrarLivroObtidoModule } from './mostrar-livro-obtido/mostrar-livro-obtido.module';
@@ -21,6 +22,7 @@ import { HomeModule } from './home/home.module';
     MostrarLivroObtidoModule,
     LivroDesejoModule,
     CadastrarLivroDesejoModule,
+    MostrarLivroDesejoModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
