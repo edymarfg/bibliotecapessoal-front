@@ -1,1 +1,17 @@
-<p>livro-desejo works!</p>
+<div class="menu">
+  <ul>
+    <li><a routerLink="/">Home</a></li>
+    <li><a routerLink="/cadastrar-livro-desejo">Cadastrar</a></li>
+  </ul>
+</div>
+<h1>Seus Desejados</h1>
+<div class="little-box" *ngFor="let livroDesejo of list">
+  <a routerLink="/mostrar-livro-desejo" [queryParams]="{ id: livroDesejo.id }">
+    <div>
+      <p>{{ livroDesejo.titulo }}</p>
+      <p>Autor: {{ livroDesejo.autor }}</p>
+      <p>{{ livroDesejo.paginas }}</p>
+    </div>
+  </a>
+</div>
+<div class="caixa"></div>

@@ -13,14 +13,14 @@ import { HttpClient } from '@angular/common/http';
 export class LivroObtidoComponent implements OnInit {
   list: LivroObtido[] = [];
 
-  constructor(private LivroObtidoService: LivroObtidoService) {}
+  constructor(private livroObtidoService: LivroObtidoService) {}
 
   ngOnInit(): void {
     this.carregaTabela();
   }
 
   private carregaTabela(): void {
-    this.LivroObtidoService.consultar().subscribe((domains: LivroObtido[]) => {
+    this.livroObtidoService.consultar().subscribe((domains: LivroObtido[]) => {
       this.list = domains;
     });
   }

@@ -1,0 +1,31 @@
+<div class="caixa">
+  <div class="menu">
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/livro-desejo">Livros</a></li>
+    </ul>
+  </div>
+  <h1>Cadastre seus Sonhos</h1>
+  <form class="form-box" [formGroup]="form" (ngSubmit)="cadastrar()">
+    <input
+      formControlName="titulo"
+      placeholder="Título"
+      type="text"
+      maxlength="64"
+    />
+    <input
+      formControlName="autor"
+      placeholder="Autor"
+      type="text"
+      maxlength="64"
+    />
+    <input
+      formControlName="paginas"
+      placeholder="Paginas Totais"
+      type="text"
+      maxlength="8"
+    />
+    <input formControlName="ano" placeholder="ano" type="text" maxlength="4" />
+    <button type="submit" [disabled]="!form.valid">Cadastrar</button>
+  </form>
+</div>

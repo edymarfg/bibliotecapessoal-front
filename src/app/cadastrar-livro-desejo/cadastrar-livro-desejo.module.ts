@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LivroDesejoComponent } from './livro-desejo.component';
+import { CadastrarLivroDesejoComponent } from './cadastrar-livro-desejo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [LivroDesejoComponent],
+  declarations: [CadastrarLivroDesejoComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -15,4 +15,4 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ],
 })
-export class LivroDesejoModule {}
+export class CadastrarLivroDesejoModule {}

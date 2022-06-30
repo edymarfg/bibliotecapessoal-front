@@ -1,3 +1,5 @@
+import { CadastrarLivroDesejoModule } from './cadastrar-livro-desejo/cadastrar-livro-desejo.module';
+import { LivroDesejoModule } from './livro-desejo/livro-desejo.module';
 import { MostrarLivroObtidoModule } from './mostrar-livro-obtido/mostrar-livro-obtido.module';
 import { CadastrarLivroObtidoModule } from './cadastrar-livro-obtido/cadastrar-livro-obtido.module';
 import { LivroObtidoModule } from './livro-obtido/livro-obtido.module';
@@ -17,6 +19,8 @@ import { HomeModule } from './home/home.module';
     LivroObtidoModule,
     CadastrarLivroObtidoModule,
     MostrarLivroObtidoModule,
+    LivroDesejoModule,
+    CadastrarLivroDesejoModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
