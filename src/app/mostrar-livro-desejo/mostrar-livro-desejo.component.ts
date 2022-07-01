@@ -158,7 +158,7 @@ export class MostrarLivroDesejoComponent implements OnInit {
 
   excluirLoja(): void {
     const id = this.idLivro;
-    const idLoja: ExcluiLojaModel = this.formEditaLoja.controls['idLoja'].value;
+    const idLoja: string = this.formEditaLoja.controls['idLoja'].value;
     console.log(id);
     console.log(idLoja);
     if (idLoja) {

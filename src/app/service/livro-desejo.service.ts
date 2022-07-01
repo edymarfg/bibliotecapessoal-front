@@ -40,8 +40,10 @@ export class LivroDesejoService {
     return this.http.put<LivroDesejo>(this.url + 'modificar-loja/' + id, model);
   }
 
-  excluirLoja(id: string, model: ExcluiLojaModel): Observable<LivroDesejo> {
-    return this.http.put<LivroDesejo>(this.url + 'excluir-loja/' + id, model);
+  excluirLoja(id: string, idLoja: string): Observable<LivroDesejo> {
+    return this.http.delete<LivroDesejo>(
+      this.url + 'excluir-loja/' + id + '/' + idLoja
+    );
   }
 
   livroObtido(id: string): Observable<LivroObtido> {
