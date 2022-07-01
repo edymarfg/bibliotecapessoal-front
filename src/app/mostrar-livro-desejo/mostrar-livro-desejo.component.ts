@@ -1,3 +1,5 @@
+import { ModificaLojaModel } from './../model/modifica-loja-model';
+import { Loja } from './../domain/loja';
 import { LojaModel } from './../model/loja-model';
 import { LivroObtido } from './../domain/livro-obtido';
 import { LivroDesejoService } from './../service/livro-desejo.service';
@@ -13,6 +15,7 @@ import {
 import { FormValidations } from '../validators/form-validations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ExcluiLojaModel } from '../model/exclui-loja-model';
 
 @Component({
   selector: 'app-mostrar-livro-desejo',
@@ -23,7 +26,7 @@ export class MostrarLivroDesejoComponent implements OnInit {
   idLivro: string = '';
   livro?: LivroDesejo;
   inscricao: Subscription = new Subscription();
-  list: LivroDesejo[] = [];
+  list: Loja[] = [];
 
   form: FormGroup = this.formBuilder.group({
     id: new FormControl(null),
@@ -48,6 +51,16 @@ export class MostrarLivroDesejoComponent implements OnInit {
 
   formAddLoja: FormGroup = this.formBuilder.group({
     idLivroDesejo: new FormControl('', [Validators.required]),
+    preco: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(1),
+      FormValidations.noLetterValidator,
+    ]),
+    nome: new FormControl(null, [Validators.required, Validators.minLength(1)]),
+  });
+
+  formEditaLoja: FormGroup = this.formBuilder.group({
+    idLoja: new FormControl('', [Validators.required]),
     preco: new FormControl(null, [
       Validators.required,
       Validators.minLength(1),
@@ -81,12 +94,12 @@ export class MostrarLivroDesejoComponent implements OnInit {
       });
   }
 
-  carregaDados(livroObtido: LivroDesejo): void {
-    this.form.controls['id'].setValue(livroObtido.id);
-    this.form.controls['titulo'].setValue(livroObtido.titulo);
-    this.form.controls['autor'].setValue(livroObtido.autor);
-    this.form.controls['paginas'].setValue(livroObtido.paginas);
-    this.form.controls['ano'].setValue(livroObtido.ano);
+  carregaDados(livroDesejo: LivroDesejo): void {
+    this.form.controls['id'].setValue(livroDesejo.id);
+    this.form.controls['titulo'].setValue(livroDesejo.titulo);
+    this.form.controls['autor'].setValue(livroDesejo.autor);
+    this.form.controls['paginas'].setValue(livroDesejo.paginas);
+    this.form.controls['ano'].setValue(livroDesejo.ano);
   }
 
   editar(): void {
@@ -97,7 +110,7 @@ export class MostrarLivroDesejoComponent implements OnInit {
         .editar(id, livroDesejoModel)
         .subscribe((domain: LivroDesejo) => {
           if (domain.id) {
-            this.router.navigate(['/livro-obtido']);
+            this.router.navigate(['/livro-desejo']);
             this.form.reset();
           }
         });
@@ -109,11 +122,47 @@ export class MostrarLivroDesejoComponent implements OnInit {
     this.formAddLoja.controls['idLivroDesejo'].setValue(id);
   }
 
-  addLoja() {
+  clickLoja(loja: Loja): void {
+    const id = loja.id;
+    this.formEditaLoja.controls['idLoja'].setValue(id);
+    this.carregaLoja(loja);
+  }
+
+  carregaLoja(loja: Loja): void {
+    this.formEditaLoja.controls['nome'].setValue(loja.nome);
+    this.formEditaLoja.controls['preco'].setValue(loja.preco);
+  }
+
+  addLoja(): void {
     const lojaModel: LojaModel = this.formAddLoja.getRawValue();
     const id = this.idLivro;
     if (id) {
       this.livroDesejoService.adicionarLoja(id, lojaModel).subscribe(() => {
+        this.resetForm();
+      });
+    }
+  }
+
+  editaLoja(): void {
+    const modificaLojaModel: ModificaLojaModel =
+      this.formEditaLoja.getRawValue();
+    const id = this.idLivro;
+    if (id) {
+      this.livroDesejoService
+        .editarLoja(id, modificaLojaModel)
+        .subscribe(() => {
+          this.resetForm();
+        });
+    }
+  }
+
+  excluirLoja(): void {
+    const id = this.idLivro;
+    const idLoja: ExcluiLojaModel = this.formEditaLoja.controls['idLoja'].value;
+    console.log(id);
+    console.log(idLoja);
+    if (idLoja) {
+      this.livroDesejoService.excluirLoja(id, idLoja).subscribe(() => {
         this.resetForm();
       });
     }
@@ -136,24 +185,24 @@ export class MostrarLivroDesejoComponent implements OnInit {
   excluir(): void {
     const id = this.idLivro;
     if (id) {
-      this.livroDesejoService
-        .excluir(this.idLivro)
-        .subscribe((domain: LivroDesejo) => {
-          if (domain.id) {
-            this.router.navigate(['/livro-obtido']);
-            this.form.reset();
-          }
-        });
+      this.livroDesejoService.excluir(id).subscribe((domain: LivroDesejo) => {
+        if (domain.id) {
+          this.router.navigate(['/livro-desejo']);
+          this.form.reset();
+        }
+      });
     }
   }
 
   resetForm(): void {
     this.formAddLoja.reset();
+    this.formEditaLoja.reset();
     this.formAddLoja.controls['idLivroDesejo'].setValue('');
+    this.formEditaLoja.controls['idLoja'].setValue('');
     this.buscaLivro();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.inscricao.unsubscribe();
   }
 }

@@ -1,3 +1,5 @@
+import { ExcluiLojaModel } from './../model/exclui-loja-model';
+import { ModificaLojaModel } from './../model/modifica-loja-model';
 import { LojaModel } from './../model/loja-model';
 import { LivroObtido } from './../domain/livro-obtido';
 import { LivroDesejo } from './../domain/livro-desejo';
@@ -32,6 +34,14 @@ export class LivroDesejoService {
 
   adicionarLoja(id: string, model: LojaModel): Observable<LivroDesejo> {
     return this.http.put<LivroDesejo>(this.url + 'adicionar-loja/' + id, model);
+  }
+
+  editarLoja(id: string, model: ModificaLojaModel): Observable<LivroDesejo> {
+    return this.http.put<LivroDesejo>(this.url + 'modificar-loja/' + id, model);
+  }
+
+  excluirLoja(id: string, model: ExcluiLojaModel): Observable<LivroDesejo> {
+    return this.http.put<LivroDesejo>(this.url + 'excluir-loja/' + id, model);
   }
 
   livroObtido(id: string): Observable<LivroObtido> {

@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { FormValidations } from '../validators/form-validations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastrar-livro-desejo',
@@ -38,7 +39,8 @@ export class CadastrarLivroDesejoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private livroDesejoService: LivroDesejoService
+    private livroDesejoService: LivroDesejoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -50,6 +52,7 @@ export class CadastrarLivroDesejoComponent implements OnInit {
       .subscribe((domain: LivroDesejo) => {
         if (domain.id) {
           this.form.reset();
+          this.router.navigate(['/livro-desejo']);
         }
       });
   }

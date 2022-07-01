@@ -22,12 +22,4 @@ export class LivroDesejoComponent implements OnInit {
       this.list = domains;
     });
   }
-
-  /*pegaMenorPreco(livroDesejo: LivroDesejo): Loja {
-    const preco = livroDesejo.lojas
-      .map((l) => l.preco)
-      .reduce((a, e) => (a < e ? a : e));
-    const loja = livroDesejo.lojas.filter((l) => l.preco === preco);
-    return loja;
-  }*/
 }
