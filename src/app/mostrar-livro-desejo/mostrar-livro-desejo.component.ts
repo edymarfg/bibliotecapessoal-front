@@ -161,7 +161,7 @@ export class MostrarLivroDesejoComponent implements OnInit {
     const idLoja: string = this.formEditaLoja.controls['idLoja'].value;
     console.log(id);
     console.log(idLoja);
-    if (idLoja) {
+    if (idLoja && confirm('Confirmar a exclusão?')) {
       this.livroDesejoService.excluirLoja(id, idLoja).subscribe(() => {
         this.resetForm();
       });
@@ -184,7 +184,7 @@ export class MostrarLivroDesejoComponent implements OnInit {
 
   excluir(): void {
     const id = this.idLivro;
-    if (id) {
+    if (id && confirm('Confirmar a exclusão?')) {
       this.livroDesejoService.excluir(id).subscribe((domain: LivroDesejo) => {
         if (domain.id) {
           this.router.navigate(['/livro-desejo']);
