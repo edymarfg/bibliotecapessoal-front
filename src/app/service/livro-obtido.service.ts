@@ -13,30 +13,30 @@ export class LivroObtidoService {
 
   constructor(private http: HttpClient) {}
 
-  consultar(): Observable<LivroObtido[]> {
-    return this.http.get<LivroObtido[]>(this.url + 'consultar');
+  consultar(): Observable<LivroObtidoModel[]> {
+    return this.http.get<LivroObtidoModel[]>(this.url + 'consultar');
   }
 
-  consultarEspecifico(id: string): Observable<LivroObtido> {
-    return this.http.get<LivroObtido>(this.url + 'consultar/' + id);
+  consultarEspecifico(id: string): Observable<LivroObtidoModel> {
+    return this.http.get<LivroObtidoModel>(this.url + 'consultar/' + id);
   }
 
-  cadastrar(model: LivroObtidoModel): Observable<LivroObtido> {
-    return this.http.post<LivroObtido>(this.url + 'cadastrar', model);
+  cadastrar(model: LivroObtidoModel): Observable<LivroObtidoModel> {
+    return this.http.post<LivroObtidoModel>(this.url + 'cadastrar', model);
   }
 
-  editar(id: string, model: LivroObtidoModel): Observable<LivroObtido> {
-    return this.http.put<LivroObtido>(this.url + 'editar/' + id, model);
+  editar(model: LivroObtidoModel): Observable<LivroObtidoModel> {
+    return this.http.put<LivroObtidoModel>(this.url + 'editar', model);
   }
 
-  addPaginas(id: string, model: PagLidasModel): Observable<LivroObtido> {
-    return this.http.put<LivroObtido>(
+  addPaginas(id: string, model: PagLidasModel): Observable<LivroObtidoModel> {
+    return this.http.put<LivroObtidoModel>(
       this.url + 'adicionar-paglidas/' + id,
       model
     );
   }
 
-  excluir(id: string): Observable<LivroObtido> {
-    return this.http.delete<LivroObtido>(this.url + 'excluir/' + id);
+  excluir(id: string): Observable<LivroObtidoModel> {
+    return this.http.delete<LivroObtidoModel>(this.url + 'excluir/' + id);
   }
 }

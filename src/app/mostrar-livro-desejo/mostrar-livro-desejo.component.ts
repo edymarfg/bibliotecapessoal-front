@@ -1,10 +1,7 @@
-import { ModificaLojaModel } from './../model/modifica-loja-model';
-import { Loja } from './../domain/loja';
+import { LivroObtidoModel } from './../model/livro-obtido-model';
 import { LojaModel } from './../model/loja-model';
-import { LivroObtido } from './../domain/livro-obtido';
 import { LivroDesejoService } from './../service/livro-desejo.service';
 import { LivroDesejoModel } from './../model/livro-desejo-model';
-import { LivroDesejo } from './../domain/livro-desejo';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -15,7 +12,6 @@ import {
 import { FormValidations } from '../validators/form-validations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ExcluiLojaModel } from '../model/exclui-loja-model';
 
 @Component({
   selector: 'app-mostrar-livro-desejo',
@@ -24,9 +20,9 @@ import { ExcluiLojaModel } from '../model/exclui-loja-model';
 })
 export class MostrarLivroDesejoComponent implements OnInit {
   idLivro: string = '';
-  livro?: LivroDesejo;
+  livro?: LivroDesejoModel;
   inscricao: Subscription = new Subscription();
-  list: Loja[] = [];
+  list: LojaModel[] = [];
 
   form: FormGroup = this.formBuilder.group({
     id: new FormControl(null),
@@ -88,13 +84,13 @@ export class MostrarLivroDesejoComponent implements OnInit {
   buscaLivro() {
     this.livroDesejoService
       .consultarEspecifico(this.idLivro)
-      .subscribe((domain: LivroDesejo) => {
+      .subscribe((domain: LivroDesejoModel) => {
         this.livro = domain;
         this.carregaDados(this.livro);
       });
   }
 
-  carregaDados(livroDesejo: LivroDesejo): void {
+  carregaDados(livroDesejo: LivroDesejoModel): void {
     this.form.controls['id'].setValue(livroDesejo.id);
     this.form.controls['titulo'].setValue(livroDesejo.titulo);
     this.form.controls['autor'].setValue(livroDesejo.autor);
@@ -107,8 +103,8 @@ export class MostrarLivroDesejoComponent implements OnInit {
     const livroDesejoModel: LivroDesejoModel = this.form.getRawValue();
     if (id) {
       this.livroDesejoService
-        .editar(id, livroDesejoModel)
-        .subscribe((domain: LivroDesejo) => {
+        .editar(livroDesejoModel)
+        .subscribe((domain: LivroDesejoModel) => {
           if (domain.id) {
             this.router.navigate(['/livro-desejo']);
             this.form.reset();
@@ -122,13 +118,13 @@ export class MostrarLivroDesejoComponent implements OnInit {
     this.formAddLoja.controls['idLivroDesejo'].setValue(id);
   }
 
-  clickLoja(loja: Loja): void {
+  clickLoja(loja: LojaModel): void {
     const id = loja.id;
     this.formEditaLoja.controls['idLoja'].setValue(id);
     this.carregaLoja(loja);
   }
 
-  carregaLoja(loja: Loja): void {
+  carregaLoja(loja: LojaModel): void {
     this.formEditaLoja.controls['nome'].setValue(loja.nome);
     this.formEditaLoja.controls['preco'].setValue(loja.preco);
   }
@@ -144,15 +140,12 @@ export class MostrarLivroDesejoComponent implements OnInit {
   }
 
   editaLoja(): void {
-    const modificaLojaModel: ModificaLojaModel =
-      this.formEditaLoja.getRawValue();
+    const lojaModel: LojaModel = this.formEditaLoja.getRawValue();
     const id = this.idLivro;
     if (id) {
-      this.livroDesejoService
-        .editarLoja(id, modificaLojaModel)
-        .subscribe(() => {
-          this.resetForm();
-        });
+      this.livroDesejoService.editarLoja(id, lojaModel).subscribe(() => {
+        this.resetForm();
+      });
     }
   }
 
@@ -173,7 +166,7 @@ export class MostrarLivroDesejoComponent implements OnInit {
     if (id) {
       this.livroDesejoService
         .livroObtido(id)
-        .subscribe((domain: LivroObtido) => {
+        .subscribe((domain: LivroObtidoModel) => {
           if (domain.id) {
             this.router.navigate(['/livro-obtido']);
             this.form.reset();
@@ -185,12 +178,14 @@ export class MostrarLivroDesejoComponent implements OnInit {
   excluir(): void {
     const id = this.idLivro;
     if (id && confirm('Confirmar a exclusão?')) {
-      this.livroDesejoService.excluir(id).subscribe((domain: LivroDesejo) => {
-        if (domain.id) {
-          this.router.navigate(['/livro-desejo']);
-          this.form.reset();
-        }
-      });
+      this.livroDesejoService
+        .excluir(id)
+        .subscribe((domain: LivroDesejoModel) => {
+          if (domain.id) {
+            this.router.navigate(['/livro-desejo']);
+            this.form.reset();
+          }
+        });
     }
   }
 

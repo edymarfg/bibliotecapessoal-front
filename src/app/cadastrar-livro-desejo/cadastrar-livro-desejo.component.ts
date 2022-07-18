@@ -1,4 +1,3 @@
-import { LivroDesejo } from './../domain/livro-desejo';
 import { LivroDesejoModel } from './../model/livro-desejo-model';
 import { LivroDesejoService } from './../service/livro-desejo.service';
 import { Component, OnInit } from '@angular/core';
@@ -49,7 +48,7 @@ export class CadastrarLivroDesejoComponent implements OnInit {
     const livroDesejoModel: LivroDesejoModel = this.form.getRawValue();
     this.livroDesejoService
       .cadastrar(livroDesejoModel)
-      .subscribe((domain: LivroDesejo) => {
+      .subscribe((domain: LivroDesejoModel) => {
         if (domain.id) {
           this.form.reset();
           this.router.navigate(['/livro-desejo']);

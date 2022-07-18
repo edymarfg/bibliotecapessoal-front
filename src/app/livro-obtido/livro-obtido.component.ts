@@ -4,6 +4,7 @@ import { LivroObtido } from './../domain/livro-obtido';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { LivroObtidoModel } from '../model/livro-obtido-model';
 
 @Component({
   selector: 'app-livro-obtido',
@@ -11,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./livro-obtido.component.scss'],
 })
 export class LivroObtidoComponent implements OnInit {
-  list: LivroObtido[] = [];
+  list: LivroObtidoModel[] = [];
 
   constructor(private livroObtidoService: LivroObtidoService) {}
 
@@ -20,8 +21,10 @@ export class LivroObtidoComponent implements OnInit {
   }
 
   private carregaTabela(): void {
-    this.livroObtidoService.consultar().subscribe((domains: LivroObtido[]) => {
-      this.list = domains;
-    });
+    this.livroObtidoService
+      .consultar()
+      .subscribe((domains: LivroObtidoModel[]) => {
+        this.list = domains;
+      });
   }
 }

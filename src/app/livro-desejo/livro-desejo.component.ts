@@ -1,6 +1,5 @@
-import { Loja } from './../domain/loja';
+import { LivroDesejoModel } from './../model/livro-desejo-model';
 import { LivroDesejoService } from './../service/livro-desejo.service';
-import { LivroDesejo } from './../domain/livro-desejo';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./livro-desejo.component.scss'],
 })
 export class LivroDesejoComponent implements OnInit {
-  list: LivroDesejo[] = [];
+  list: LivroDesejoModel[] = [];
 
   constructor(private livroDesejoService: LivroDesejoService) {}
 
@@ -18,8 +17,10 @@ export class LivroDesejoComponent implements OnInit {
   }
 
   private carregaTabela(): void {
-    this.livroDesejoService.consultar().subscribe((domains: LivroDesejo[]) => {
-      this.list = domains;
-    });
+    this.livroDesejoService
+      .consultar()
+      .subscribe((domains: LivroDesejoModel[]) => {
+        this.list = domains;
+      });
   }
 }

@@ -21,9 +21,9 @@ import { FormValidations } from '../validators/form-validations';
 })
 export class MostrarLivroObtidoComponent implements OnInit {
   idLivro: string = '';
-  livro?: LivroObtido;
+  livro?: LivroObtidoModel;
   inscricao: Subscription = new Subscription();
-  list: LivroObtido[] = [];
+  list: LivroObtidoModel[] = [];
 
   form: FormGroup = this.formBuilder.group({
     id: new FormControl(null),
@@ -80,13 +80,13 @@ export class MostrarLivroObtidoComponent implements OnInit {
   buscaLivro() {
     this.livroObtidoService
       .consultarEspecifico(this.idLivro)
-      .subscribe((domain: LivroObtido) => {
+      .subscribe((domain: LivroObtidoModel) => {
         this.livro = domain;
         this.carregaDados(this.livro);
       });
   }
 
-  carregaDados(livroObtido: LivroObtido): void {
+  carregaDados(livroObtido: LivroObtidoModel): void {
     this.form.controls['id'].setValue(livroObtido.id);
     this.form.controls['titulo'].setValue(livroObtido.titulo);
     this.form.controls['autor'].setValue(livroObtido.autor);
@@ -100,8 +100,8 @@ export class MostrarLivroObtidoComponent implements OnInit {
     const livroObtidoModel: LivroObtidoModel = this.form.getRawValue();
     if (id) {
       this.livroObtidoService
-        .editar(id, livroObtidoModel)
-        .subscribe((domain: LivroObtido) => {
+        .editar(livroObtidoModel)
+        .subscribe((domain: LivroObtidoModel) => {
           if (domain.id) {
             this.router.navigate(['/livro-obtido']);
             this.form.reset();
@@ -115,7 +115,7 @@ export class MostrarLivroObtidoComponent implements OnInit {
     if (id) {
       this.livroObtidoService
         .excluir(this.idLivro)
-        .subscribe((domain: LivroObtido) => {
+        .subscribe((domain: LivroObtidoModel) => {
           if (domain.id) {
             this.router.navigate(['/livro-obtido']);
             this.form.reset();
@@ -130,7 +130,7 @@ export class MostrarLivroObtidoComponent implements OnInit {
     if (id) {
       this.livroObtidoService
         .addPaginas(id, pagLidasModel)
-        .subscribe((domain: LivroObtido) => {
+        .subscribe((domain: LivroObtidoModel) => {
           this.router.navigate(['/livro-obtido']);
           this.formAddPaginas.reset();
           this.carregaDados(domain);

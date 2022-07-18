@@ -53,7 +53,7 @@ export class CadastrarLivroObtidoComponent implements OnInit {
     const livroObtidoModel: LivroObtidoModel = this.form.getRawValue();
     this.livroObtidoService
       .cadastrar(livroObtidoModel)
-      .subscribe((domain: LivroObtido) => {
+      .subscribe((domain: LivroObtidoModel) => {
         if (domain.id) {
           this.form.reset();
           this.router.navigate(['/livro-obtido']);

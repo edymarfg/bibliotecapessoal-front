@@ -1,8 +1,5 @@
-import { ExcluiLojaModel } from './../model/exclui-loja-model';
-import { ModificaLojaModel } from './../model/modifica-loja-model';
+import { LivroObtidoModel } from './../model/livro-obtido-model';
 import { LojaModel } from './../model/loja-model';
-import { LivroObtido } from './../domain/livro-obtido';
-import { LivroDesejo } from './../domain/livro-desejo';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LivroDesejoModel } from '../model/livro-desejo-model';
@@ -16,41 +13,47 @@ export class LivroDesejoService {
 
   constructor(private http: HttpClient) {}
 
-  consultar(): Observable<LivroDesejo[]> {
-    return this.http.get<LivroDesejo[]>(this.url + 'consultar');
+  consultar(): Observable<LivroDesejoModel[]> {
+    return this.http.get<LivroDesejoModel[]>(this.url + 'consultar');
   }
 
-  consultarEspecifico(id: string): Observable<LivroDesejo> {
-    return this.http.get<LivroDesejo>(this.url + 'consultar/' + id);
+  consultarEspecifico(id: string): Observable<LivroDesejoModel> {
+    return this.http.get<LivroDesejoModel>(this.url + 'consultar/' + id);
   }
 
-  cadastrar(model: LivroDesejoModel): Observable<LivroDesejo> {
-    return this.http.post<LivroDesejo>(this.url + 'cadastrar', model);
+  cadastrar(model: LivroDesejoModel): Observable<LivroDesejoModel> {
+    return this.http.post<LivroDesejoModel>(this.url + 'cadastrar', model);
   }
 
-  editar(id: string, model: LivroDesejoModel): Observable<LivroDesejo> {
-    return this.http.put<LivroDesejo>(this.url + 'editar/' + id, model);
+  editar(model: LivroDesejoModel): Observable<LivroDesejoModel> {
+    return this.http.put<LivroDesejoModel>(this.url + 'editar', model);
   }
 
-  adicionarLoja(id: string, model: LojaModel): Observable<LivroDesejo> {
-    return this.http.put<LivroDesejo>(this.url + 'adicionar-loja/' + id, model);
+  adicionarLoja(id: string, model: LojaModel): Observable<LivroDesejoModel> {
+    return this.http.put<LivroDesejoModel>(
+      this.url + 'adicionar-loja/' + id,
+      model
+    );
   }
 
-  editarLoja(id: string, model: ModificaLojaModel): Observable<LivroDesejo> {
-    return this.http.put<LivroDesejo>(this.url + 'modificar-loja/' + id, model);
+  editarLoja(id: string, model: LojaModel): Observable<LivroDesejoModel> {
+    return this.http.put<LivroDesejoModel>(
+      this.url + 'modificar-loja/' + id,
+      model
+    );
   }
 
-  excluirLoja(id: string, idLoja: string): Observable<LivroDesejo> {
-    return this.http.delete<LivroDesejo>(
+  excluirLoja(id: string, idLoja: string): Observable<LivroDesejoModel> {
+    return this.http.delete<LivroDesejoModel>(
       this.url + 'excluir-loja/' + id + '/' + idLoja
     );
   }
 
-  livroObtido(id: string): Observable<LivroObtido> {
-    return this.http.delete<LivroObtido>(this.url + 'livro-obtido/' + id);
+  livroObtido(id: string): Observable<LivroObtidoModel> {
+    return this.http.delete<LivroObtidoModel>(this.url + 'livro-obtido/' + id);
   }
 
-  excluir(id: string): Observable<LivroDesejo> {
-    return this.http.delete<LivroDesejo>(this.url + 'excluir/' + id);
+  excluir(id: string): Observable<LivroDesejoModel> {
+    return this.http.delete<LivroDesejoModel>(this.url + 'excluir/' + id);
   }
 }
