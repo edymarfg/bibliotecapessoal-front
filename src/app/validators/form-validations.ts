@@ -18,4 +18,12 @@ export class FormValidations {
     }
     return null;
   }
+
+  static noPagLidasMaiorQuePaginas(paginas: Number, control: FormControl) {
+    const number = control.value;
+    if (number && number !== '') {
+      return number > paginas ? null : { numInvalido: true };
+    }
+    return null;
+  }
 }

@@ -45,7 +45,7 @@
     </form>
   </div>
   <div id="pagLid" class="form-box">
-    <h3>Quantas páginas que você leu?</h3>
+    <h3>Em qual página você está?</h3>
     <form [formGroup]="formAddPaginas" (ngSubmit)="addPaginas()">
       <input formControlName="pagLidas" type="text" maxlength="8" />
       <button type="submit" [disabled]="!formAddPaginas.valid">
