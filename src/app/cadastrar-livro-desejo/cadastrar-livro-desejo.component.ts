@@ -27,12 +27,12 @@ export class CadastrarLivroDesejoComponent implements OnInit {
     ]),
     paginas: new FormControl(null, [
       Validators.required,
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
     ano: new FormControl(null, [
       Validators.required,
       Validators.minLength(4),
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
   });
 
@@ -46,6 +46,7 @@ export class CadastrarLivroDesejoComponent implements OnInit {
 
   cadastrar(): void {
     const livroDesejoModel: LivroDesejoModel = this.form.getRawValue();
+
     this.livroDesejoService
       .cadastrar(livroDesejoModel)
       .subscribe((domain: LivroDesejoModel) => {

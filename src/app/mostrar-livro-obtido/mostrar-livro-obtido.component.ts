@@ -38,17 +38,17 @@ export class MostrarLivroObtidoComponent implements OnInit {
     paginas: new FormControl(null, [
       Validators.required,
       Validators.minLength(2),
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
     pagLidas: new FormControl(null, [
       Validators.required,
       Validators.minLength(1),
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
     ano: new FormControl(null, [
       Validators.required,
       Validators.minLength(4),
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
   });
 
@@ -57,7 +57,7 @@ export class MostrarLivroObtidoComponent implements OnInit {
     pagLidas: new FormControl(null, [
       Validators.required,
       Validators.minLength(1),
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
   });
 
@@ -98,6 +98,7 @@ export class MostrarLivroObtidoComponent implements OnInit {
   editar(): void {
     const id = this.idLivro;
     const livroObtidoModel: LivroObtidoModel = this.form.getRawValue();
+    console.log('PASSOU POR AQUI', livroObtidoModel);
     if (id) {
       this.livroObtidoService
         .editar(livroObtidoModel)

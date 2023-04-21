@@ -28,16 +28,16 @@ export class CadastrarLivroObtidoComponent implements OnInit {
     ]),
     paginas: new FormControl(null, [
       Validators.required,
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
     pagLidas: new FormControl(null, [
       Validators.required,
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
     ano: new FormControl(null, [
       Validators.required,
       Validators.minLength(4),
-      FormValidations.numberValidator,
+      FormValidations.numberValidator.prototype(),
     ]),
   });
 
